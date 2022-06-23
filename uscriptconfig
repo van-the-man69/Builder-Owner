@@ -1,0 +1,66 @@
+//
+// Plugin created by vantheman
+
+AvailableObjects = [1198,1092];
+//
+ 
+command givebuild(arg0)
+{
+    permission = "vantheman.givebuild";
+    allowedCaller = "player";
+    execute()
+    {
+        target = toPlayer(arg0);  
+        if(target != null)
+        {
+            lookBarricade = player.look.getBarricade();
+            lookStructure = player.look.getStructure();
+            if(lookBarricade != null)
+            {
+                if(AvailableObjects.contains(lookBarricade.id))
+                {
+                    if(lookBarricade.owner == player.id.toString())
+                    {
+                        lookBarricade.owner = target.id.toString();
+                        player.message("Object transfer successful", "yellow");
+                    }
+                    else
+                    {
+                        player.message("Object doesn't belong to you.", "red");
+                    }   
+                }
+                else
+                {
+                    player.message("The owner of this object cannot be changed.", "red");
+                }           
+            }
+            else if(lookStructure != null)
+            {
+                if(AvailableObjects.contains(lookStructure.id))
+                {
+                    if(lookStructure.owner == player.id.toString())
+                    {
+                        lookStructure.owner = target.id.toString();
+                        player.message("Object transfer successful", "yellow");
+                    }
+                    else
+                    {
+                        player.message("Object doesn't belong to you.", "red");
+                    }   
+                }
+                else
+                {
+                    player.message("The owner of this object cannot be changed.", "red");
+                }  
+            }
+            else
+            {
+                player.message("Object null.", "red");
+            }
+        }
+        else
+        {
+            player.message("Target not found.", "red");
+        }        
+    }
+}
